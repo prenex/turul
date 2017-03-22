@@ -14,4 +14,5 @@ Repository structure
 ====================
 
 docs/   - contains documentation and (Hungarian) text of my thesis in markdown format and various export formats.
+
 core/   - contains a LightWeightComponents pattern based system (will elaborate later)
