@@ -30,15 +30,17 @@ Component architecture in the standalone case
 	       │           └───────┬────┬───────┘         └────────────┘
 	       │                   │    └──────────┐         <<class>>
 	       │                   │               │
-	┌──────┴───────┐ ┌─────────┴────────┐ ┌────┴─────────────┐make┌────────┐
-	│LoggerServices│ │DictionaryServices│ │TBufIoServiceImpl*├────┤TreeHead│
-	└────┬─────────┘ └─────────────┬────┘ └─────────────┬────┘updt└────────┘
-	     │     (implements)        │              ┌─────┴─────┐    <<class>>
-	┌────┴──────┐ ┌────────────────┴────────┐ ┌───┴──┐     ┌──┴──┐
-	│StdLogger  │ │BootDictionaryServiceImpl│ │tbuf.h├────>│fio.h│
-	│ServiceImpl│ └─────────────────────────┘ └──────┘     └─────┘
-	└───────────┘
-Rem.: Service implementations marked with asterisk (\*) have interfaces too, but not shown here for simplicity.
+	┌──────┴───────┐ ┌─────────┴────────┐ ┌────┴────────┐make┌────────┐
+	│LoggerServices│ │DictionaryServices│ │  IoService  ├────┤TreeHead│
+	└────┬─────────┘ └─────────────┬────┘ └──────────┬──┘updt└────────┘
+	     │     (implements)        │  (implements)   │        <<class>>
+	┌────┴──────┐ ┌────────────────┴────────┐  ┌─────┴───────────┐
+	│StdLogger  │ │BootDictionaryServiceImpl│  │TBufIoServiceImpl│
+	│ServiceImpl│ └─────────────────────────┘  └────────┬────────┘
+	└───────────┘                                 ┌─────┴─────┐
+	                                          ┌───┴──┐ use ┌──┴──┐
+	                                          │tbuf.h├────>│fio.h│
+	                                          └──────┘     └─────┘
 
 NameSpace breakdown
 ===================
@@ -46,6 +48,7 @@ NameSpace breakdown
 We have the following namespaces:
 
 * code without namespace
+* turul\_standalone
 * turul\_core
 * turul\_words
 * lwc\_log
@@ -60,17 +63,24 @@ Code without a namespace
 * This contains turul.cpp as the entry point for having the command line stand-alone executable "turul".
 * Might have things from the component framework maybe but should not have component code.
 
+turul\_main
+-----------
+
+Contains the ControllerService and its implementations (here StandaloneControllerServiceImpl).
+
 turul\_core
 ----------
 
 Contains:
 
-* TurulCoreService and implementation
+* TurulCoreService
+* TurulCoreServiceImpl
 * StackHandler class
-* TBufIoService and implementation
+* IoService
+* TBufIoServiceImpl
 * TreeHead class
 
-This should be enough to use Turul as a library for basic use cases and contains the engine, but does not contain any predefined words.
+This should be enough to use Turul as a library for basic use cases and contains the engine, but does not contain any predefined words. The IoService is implemented with files in this case, but that is a point in the architecture where we can introduce network / client-server models into the system by providing networked implementations.
 
 turul\_words
 -----------
