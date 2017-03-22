@@ -7,24 +7,32 @@ TODO: Currently only the standalone architecture is presented as that is the fir
 Component architecture in the standalone case
 =============================================
 
+                              <<entry point>>
+                          <<describes components>>
 	                        ┌─────────┐
 	                        │turul.cpp│
 	                        └────┬────┘
 	                             │
-	                             │
-	                ┌────────────┴───────────────────┐
-	       ┌────────┤StandaloneControllerServiceImpl*│
-	       │        └────────────┬───────────────────┘
+	                     ┌───────┴─────────┐
+                             │ControllerService│
+	                     └───────┬─────────┘
+	                             │ (implements)
+	                ┌────────────┴──────────────────┐
+	       ┌────────┤StandaloneControllerServiceImpl│
+	       │        └────────────┬──────────────────┘
 	       │                     │
-	       │                     │
-	       │             ┌───────┴─────────────┐   has   ┌────────────┐
-	       ├─────────────┤TurulCoreServiceImpl*├─────────┤StackHandler│
-	       │             └───────┬────┬────────┘         └────────────┘
-	       │                     │    └──────────┐         <<class>>
-	       │                     │               │
-	┌──────┴───────┐ ┌───────────┴──────┐ ┌──────┴───────────┐has ┌────────┐
+	       │             ┌───────┴────────┐
+	       │             │TurulCoreService│
+	       │             └───────┬────────┘
+	       │                     │ (implements)
+	       │           ┌─────────┴──────────┐   has   ┌────────────┐
+	       ├───────────┤TurulCoreServiceImpl├─────────┤StackHandler│
+	       │           └───────┬────┬───────┘         └────────────┘
+	       │                   │    └──────────┐         <<class>>
+	       │                   │               │
+	┌──────┴───────┐ ┌─────────┴────────┐ ┌────┴─────────────┐make┌────────┐
 	│LoggerServices│ │DictionaryServices│ │TBufIoServiceImpl*├────┤TreeHead│
-	└────┬─────────┘ └─────────────┬────┘ └─────────────┬────┘    └────────┘
+	└────┬─────────┘ └─────────────┬────┘ └─────────────┬────┘updt└────────┘
 	     │     (implements)        │              ┌─────┴─────┐    <<class>>
 	┌────┴──────┐ ┌────────────────┴────────┐ ┌───┴──┐     ┌──┴──┐
 	│StdLogger  │ │BootDictionaryServiceImpl│ │tbuf.h├────>│fio.h│
