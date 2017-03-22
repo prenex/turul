@@ -29,7 +29,7 @@ Component architecture in the standalone case
 	┌────┴──────┐ ┌────────────────┴────────┐ ┌───┴──┐     ┌──┴──┐
 	│StdLogger  │ │BootDictionaryServiceImpl│ │tbuf.h├────>│fio.h│
 	│ServiceImpl│ └─────────────────────────┘ └──────┘     └─────┘
-        └───────────┘
+	└───────────┘
 Rem.: Service implementations marked with asterisk (\*) have interfaces too, but not shown here for simplicity.
 
 NameSpace breakdown
