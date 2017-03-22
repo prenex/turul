@@ -13,5 +13,5 @@ The goal is a general system that can compile any context-free grammar providing
 Repository structure
 ====================
 
-	docs/   - contains documentation and (Hungarian) text of my thesis in markdown format and various export formats.
-	src/   - contains a LightWeightComponents pattern based system (will elaborate later)
+	docs/   - contains documentation and (Hungarian) text of my thesis
+	src/    - contains a LightWeightComponents pattern based system (will elaborate later)
