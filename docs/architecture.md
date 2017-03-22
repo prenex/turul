@@ -14,7 +14,7 @@ Component architecture in the standalone case
 	                        └────┬────┘
 	                             │
 	                     ┌───────┴─────────┐
-                             │ControllerService│
+	                     │ControllerService│
 	                     └───────┬─────────┘
 	                             │ (implements)
 	                ┌────────────┴──────────────────┐
