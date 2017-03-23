@@ -17,38 +17,42 @@ A really small example that shows a good pattern in component based C++ programm
 
 Architecture:
 =============
-
 	.
-	├── components
-	│   ├── AdderService.h
-	│   ├── FilePrinterServiceImpl
-	│   │   ├── ComponentImpl.cpp
-	│   │   ├── ComponentImpl.h
-	│   │   ├── ComponentImpl.o
-	│   │   └── node.mk
-	│   ├── MainControllerService.h
-	│   ├── MainControllerServiceImpl
-	│   │   ├── ComponentImpl.cpp
-	│   │   ├── ComponentImpl.h
-	│   │   ├── ComponentImpl.o
-	│   │   └── node.mk
-	│   ├── main.cpp
-	│   ├── main.o
-	│   ├── node.mk
-	│   ├── PrinterServices.h
-	│   ├── SimpleAdderServiceImpl
-	│   │   ├── ComponentImpl.cpp
-	│   │   ├── ComponentImpl.h
-	│   │   ├── ComponentImpl.o
-	│   │   └── node.mk
-	│   └── SimplePrinterServiceImpl
-	│       └── ComponentImpl.h
-	├── LICENSE
-	├── main
-	├── makefile
-	├── out.txt
-	├── README.md
-	└── traverse.mk
+	└── components
+	    ├── BootDictionaryServiceImpl
+	    │   ├── ComponentImpl.cpp
+	    │   ├── ComponentImpl.h
+	    │   └── node.mk
+	    ├── ControllerService.h
+	    ├── DictionaryServices.h
+	    ├── IoService.h
+	    ├── LoggerServices.h
+	    ├── node.mk
+	    ├── StandaloneControllerServiceImpl
+	    │   ├── ComponentImpl.cpp
+	    │   ├── ComponentImpl.h
+	    │   └── node.mk
+	    ├── StdLoggerServiceImpl
+	    │   └── ComponentImpl.h
+	    ├── TBufIoServiceImpl
+	    │   ├── ComponentImpl.cpp
+	    │   ├── ComponentImpl.h
+	    │   ├── deps
+	    │   │   ├── fio.h
+	    │   │   ├── in.txt
+	    │   │   ├── LICENSE
+	    │   │   ├── makefile
+	    │   │   ├── README.md
+	    │   │   ├── tbuf.h
+	    │   │   ├── tbuf.tbnf
+	    │   │   └── test.cpp
+	    │   └── node.mk
+	    ├── TurulCoreService.h
+	    ├── TurulCoreServiceImpl
+	    │   ├── ComponentImpl.cpp
+	    │   ├── ComponentImpl.h
+	    │   └── node.mk
+	    └── turul.cpp
 
 * The main file should not contain anything else just the interfacing modules and implementation components and the main calling a controller...
 * Interfacing module: this is a header of a class that the implementers implement. Its code just delegates to the real implementers.
@@ -69,8 +73,8 @@ For an even simpler architecture without the descending non-recursive make, look
 Actually this can be used in that way that the whole "system" starts later than the main at a random point. I hope you see how.
 So this is kind of a static module/plugin system or pattern where instead of knowing what this or that "container" do, you see everything explained in code. This should make it easier to grasp the things even for those who don't know these techniques and hopefully the whole approach is more cleaner than its heavyweight counterparts.
 
-Highlights
-==========
+LWC Examples
+============
 
 Dependency injection in an implementer:
 
