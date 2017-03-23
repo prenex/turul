@@ -1,0 +1,72 @@
+                   Open scientific paper public Licence                     *
+                        Version 1, 23 Mar. 2017
+
+
+ Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+
+ This version of the Open scientific paper public License incorporates
+the terms and conditions of version 1 of the Open scientific public
+License, supplemented by the additional permissions listed below.
+
+ Articles and further documents published under an Open scientific paper
+public License are protected by copyright. Anyone may access, download,
+copy, translate, text and data mine (but may not redistribute, display
+or adapt) the articles and documents for non-commercial purposes
+provided that users:
+
+1.  Cite the article using an appropriate bibliographic citation
+    (i.e. author(s), journal or source, article title, volume,
+     issue, page numbers, DOI and the link to the definitive 
+     published version on github)
+    
+    The along with the citation there should be information about 
+    the latest technical git commit identifier for the given document
+    in the time of "usage". The time of "usage" is defined by the
+    latest date and time among the followings:
+
+     * The publication time of the content in which the document(s)
+       contents were used as a source.
+
+     * Time of incorporating the citation in the contents where the
+       document(s) contents were used as a source
+
+2.  Maintain the integrity of the article(s)
+
+3.  Retain copyright notices and links to these terms and conditions
+    so it is clear to other users what can and cannot be done with the article.
+
+4.  Ensure that, for any content in the article that is identified as belonging
+    to a third party, any re-use complies with the copyright policies of 
+    that third party.
+
+5.  Any translations, for which a prior translation agreement with the author
+    has not been established, must prominently display the statement:
+    "This is an unofficial translation of an article that appeared in an 
+    Open scientific paper public Licence publication found at <source>.
+    The author has not endorsed this translation."
+    Where <source> is a placeholder to add an extended bibliographic citation,
+    as above which needs to be filled for referring the translated document(s).
+
+For permission to use or alter the documents beyond permitted here,
+please contact the author directly.
+
+This is a non commercial license where the use of published articles and 
+documents for commercial purposes are prohibited. Commercial purposes include: 
+
+1.  Copying or downloading articles, or linking to such postings, for 
+    further redistribution, sale or licensing, for a fee.
+
+2.  Copying, downloading or posting by a site or service that incorporates
+    advertising with such content.
+
+3.  The inclusion or incorporation of article content in other works or 
+    services (other than normal quotations with an appropriate citation)
+    that is then available for sale or licensing, for a fee.
+
+4.  Use of articles or article content (other than normal quotations with
+    appropriate citation) by for-profit organizations for promotional
+    purposes, whether for a fee or otherwise.
+
+5.  Use for the purposes of monetary reward by means of sale, resale,
+    license, loan, transfer or other form of commercial exploitation.
