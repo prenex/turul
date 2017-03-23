@@ -1,6 +1,6 @@
 # The target executable name
 # with em++ it gets suffixed with ".html"
-TARGET=main
+TARGET=turul
 
 # for gcc5.1+:
 CC=g++
@@ -75,4 +75,4 @@ endif
 .PHONY: clean
 clean:
 	rm -f $(OBJS_ALL)
-	rm -f main
+	rm -f turul
