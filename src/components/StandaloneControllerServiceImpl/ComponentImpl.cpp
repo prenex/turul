@@ -2,8 +2,9 @@
 #include<cstdio>
 // Local includes
 #include "ComponentImpl.h"
-// Component usage includes
+// Logging service and its macros
 #include"../LoggerServices.h"
+// Component usage includes
 
 // Uncomment if you want to see the service binding tests
 #define TEST_SERVICE_BINDINGS 1
@@ -12,12 +13,12 @@ namespace StandaloneControllerServiceImpl {
 #ifdef TEST_SERVICE_BINDINGS
 
 	void testServices() {
-		printf("Pinging service implementations...\n");
+		LOGI("Pinging service implementations...");
 		// Test logger service bindings
 		LoggerServices ls;
-		printf(" - %d LoggerService implementations\n", ls.testServices());
+		LOGI(" - %d LoggerService implementations", ls.testServices());
 		// TODO: Test if other service implementations are available
-		printf("...end of pinging service implementations!\n");
+		LOGI("...end of pinging service implementations!");
 	}
 #endif
 
