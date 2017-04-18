@@ -5,15 +5,15 @@
 class TurulCoreService {
 private:
 	static TurulCoreService* serviceImpl;
+protected:	
+	static void registerImpl(TurulCoreService* impl) {
+		serviceImpl = impl;
+	}
 public:
 	virtual bool test() {
 		if(serviceImpl != nullptr) {
 			return serviceImpl->test();
 		}
-	}
-	
-	static void registerImpl(TurulCoreService* impl) {
-		serviceImpl = impl;
 	}
 };
 
