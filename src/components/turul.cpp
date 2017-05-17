@@ -10,7 +10,9 @@
 #include "LoggerServices.h"
 #include "DictionaryServices.h"
 #include "TurulCoreService.h"
+#include "MultiStackService.h"
 #include "IoService.h"
+#include "MultiStackService.h"
 
 #define LWC_IMPLEMENTATION_MODULES
 #include "StandaloneControllerServiceImpl/ComponentImpl.h"
@@ -18,6 +20,7 @@
 #include "BootDictionaryServiceImpl/ComponentImpl.h"
 #include "TurulCoreServiceImpl/ComponentImpl.h"
 #include "TBufIoServiceImpl/ComponentImpl.h"
+#include "HashMultiStackServiceImpl/ComponentImpl.h"
 
 // Service configurations  //
 
