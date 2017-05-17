@@ -25,7 +25,7 @@
 // Service configurations  //
 
 // Set log level for LoggerServices
-const LoggerServices::Level LoggerServices::conf_logLevel = LoggerServices::Level::INFO;
+const LoggerServices::Level LoggerServices::conf_logLevel = LoggerServices::Level::TRACE;
 
 void test();
 

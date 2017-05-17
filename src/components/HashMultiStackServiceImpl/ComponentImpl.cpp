@@ -18,6 +18,14 @@ namespace HashMultiStackServiceImpl {
 		LOGI("4=%d\n" ,mss[1].pop());
 		LOGI("2=%d\n" ,mss[1].pop());
 
+		for(int i = 0; i < 42; ++i) {
+			mss[0].push(i);
+		}
+
+		for(int i = 0; i < 42; ++i) {
+			LOGI("popped back in loop (should be %d): %d", (42 - i), mss[0].pop());
+		}
+
 
 		LOGI("... end of testing HashMultiStackServiceImpl!");
 		// TODO: return false if something is wrong

@@ -1,6 +1,7 @@
 #ifndef HASH_STACKS_H
 #define HASH_STACKS_H
 
+#include"../LoggerServices.h"
 #include"../MultiStackService.h"
 #include<vector>
 
@@ -49,11 +50,13 @@ namespace HashMultiStackServiceImpl {
 
 		/** Push copy of the given elem on top of the stack */
 		void push(STACK_DATA_TYPE elem) override {
+			LOGT("PUSH-VECTOR");
 			v.push_back(elem);
 		}
 
 		/** Get the top element of the stack and shrink the stack */
 		STACK_DATA_TYPE pop() {
+			LOGT("POP-VECTOR");
 			STACK_DATA_TYPE dt = this->top();
 			v.pop_back();
 			return dt;
@@ -106,8 +109,9 @@ namespace HashMultiStackServiceImpl {
 		/** Push copy of the given elem on top of the stack */
 		void push(STACK_DATA_TYPE elem) override {
 			if(stackSize < STACK_TURBO_DEPTH) {
+				LOGT("PUSH-TURBO");
 				// If there is still place for that, use directly the cache-friendly area
-				turbo[turboIndex(stackNo, stackSize)];
+				turbo[turboIndex(stackNo, stackSize)] = elem;
 			} else {
 				// Just use the underlying VectorStack
 				vs.push(elem);
@@ -118,9 +122,11 @@ namespace HashMultiStackServiceImpl {
 		/** Get the top element of the stack and shrink the stack */
 		STACK_DATA_TYPE pop() override {
 			if(stackSize <= STACK_TURBO_DEPTH) {
+				LOGT("POP-TURBO");
 				// Simple case, just pop from the small cache
-				return turbo[turboIndex(stackNo, stackSize--)];
+				return turbo[turboIndex(stackNo, --stackSize)];
 			} else {
+				// Use the underlying vector stack...
 				STACK_DATA_TYPE dt = vs.pop();
 				--stackSize;
 				return dt;
@@ -157,10 +163,12 @@ namespace HashMultiStackServiceImpl {
 		}
 
 		inline Stack& operator[] (std::size_t i) {
-			//if(i < STACK_BREADTH) {
+			if(i < STACK_BREADTH) {
 				// First STACK_BREADTH stacks are of fast direct access with turbo
 				return turboStacks[i];
-			//}
+			} else {
+				// TODO: implement extension stack logic here!
+			}
 		}
 	};
 }
