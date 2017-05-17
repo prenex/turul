@@ -12,7 +12,6 @@
 #include "TurulCoreService.h"
 #include "MultiStackService.h"
 #include "IoService.h"
-#include "MultiStackService.h"
 
 #define LWC_IMPLEMENTATION_MODULES
 #include "StandaloneControllerServiceImpl/ComponentImpl.h"
