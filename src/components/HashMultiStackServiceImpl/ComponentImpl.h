@@ -14,9 +14,9 @@ namespace HashMultiStackServiceImpl {
 		ComponentImpl() {
 			MultiStackService::registerImpl(this);
 		}
-		virtual bool test();
+		bool test() const override;
 
-		virtual Stack& operator[] (std::size_t i);
+		Stack& operator[] (std::size_t i) override;
 	};
 }
 // Creating the implementation ensures service reg.

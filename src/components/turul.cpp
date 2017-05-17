@@ -27,9 +27,17 @@
 // Set log level for LoggerServices
 const LoggerServices::Level LoggerServices::conf_logLevel = LoggerServices::Level::INFO;
 
+void test();
+
 // Entry point //
 int main(int argc, char* argv[]) {
+	test();
 	// Run the entry point
 	ControllerService controllerService;
 	return controllerService.run(argc, argv);
+}
+
+void test() {
+	MultiStackService mss;
+	mss.test();
 }

@@ -31,13 +31,14 @@ public:
 	}
 
 	/** Gets the ith stack - reference ownership is NOT transferred! */
-	virtual Stack& operator[] (std::size_t i) const {
+	virtual Stack& operator[] (std::size_t i) {
 		return serviceImpl->operator[](i);
 	}
 };
 
 /** Abstract superclass for an individual stack */
 class Stack {
+public:
 	/** The size of this stack */
 	virtual size_t size() const = 0;
 	/** Gets the ith element of the stack - where index 0 is the top and 1 is the second elem. */
