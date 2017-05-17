@@ -23,7 +23,7 @@ namespace HashMultiStackServiceImpl {
 		}
 
 		for(int i = 0; i < 42; ++i) {
-			LOGI("popped back in loop (should be %d): %d", (42 - i), mss[0].pop());
+			LOGI("popped back in loop (should be %d): %d", (41 - i), mss[0].pop());
 		}
 
 
