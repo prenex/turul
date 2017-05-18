@@ -4,6 +4,7 @@
 #include"../LoggerServices.h"
 #include"../MultiStackService.h"
 #include<vector>
+#include<unordered_map> // Contains unordered_map
 
 // Use this for overriding the length or depth of the 'turbo' part that is cache-optimized.
 // This applies to the first 8 stacks and they will be chached with this depth.
@@ -33,12 +34,12 @@ namespace HashMultiStackServiceImpl {
 		std::vector<STACK_DATA_TYPE> v;
 	public:
 		/** The size of this stack is the size of the underlying vector */
-		size_t size() const override {
+		std::size_t size() const override {
 			return v.size();
 		}
 
 		/** Gets the ith element of the stack - where index 0 is the top and 1 is the second elem. */
-		const STACK_DATA_TYPE& operator[](size_t i) const override {
+		const STACK_DATA_TYPE& operator[](std::size_t i) const override {
 			// Simple indexing trick only
 			return v[v.size() - 1 - i];
 		}
@@ -69,7 +70,7 @@ namespace HashMultiStackServiceImpl {
 	 * See: HashStacks class below
 	 */
 	class TurboStack final : public Stack {
-		size_t stackSize = 0;
+		std::size_t stackSize = 0;
 		int stackNo;
 		STACK_DATA_TYPE *turbo;
 		VectorStack vs;
@@ -86,17 +87,17 @@ namespace HashMultiStackServiceImpl {
 		}
 
 		/** Helper function to determine the size of the turbo-area */
-		static constexpr size_t turboSize() {
+		static constexpr std::size_t turboSize() {
 			return STACK_TURBO_DEPTH * sizeof(STACK_DATA_TYPE) * STACK_BREADTH;
 		}
 
 		/** The size of this stack is the size of the underlying vector */
-		size_t size() const override {
+		std::size_t size() const override {
 			return stackSize;
 		}
 
 		/** Gets the ith element of the stack - where index 0 is the top and 1 is the second elem. */
-		const STACK_DATA_TYPE& operator[](size_t i) const override {
+		const STACK_DATA_TYPE& operator[](std::size_t i) const override {
 			if(i < STACK_TURBO_DEPTH) {
 				// The first few elements are stored in the cache-friendly area
 				return turbo[turboIndex(stackNo, i)];
@@ -149,8 +150,9 @@ namespace HashMultiStackServiceImpl {
 		STACK_DATA_TYPE turbo[TurboStack::turboSize()];
 		TurboStack turboStacks[STACK_BREADTH];
 
-		// Extension slots - contains the other stacks (hashed into this array)
-		std::vector<VectorStack> slots[STACK_BREADTH];
+		// Extension slots - contains the other stacks (hashed into this multi-map)
+		// find(..) returns an iterator in this case!
+		std::unordered_map<std::size_t, VectorStack> slots;
 
 	public:
 		/** Create an empty multi-stack */
@@ -167,7 +169,13 @@ namespace HashMultiStackServiceImpl {
 				// First STACK_BREADTH stacks are of fast direct access with turbo
 				return turboStacks[i];
 			} else {
-				// TODO: implement extension stack logic here!
+				// TODO: Do some "GC-ing" in the case of slots and buckets 
+				// Rem.: Not as bad as you might think: pops should at least handle things normally!
+
+				// Every index other than the first breadth are going to get hashed...
+				std::size_t slotIndex = (i - STACK_BREADTH);
+				// This default constructs if it does not find the stack already!
+				return slots[slotIndex];
 			}
 		}
 	};

@@ -40,9 +40,9 @@ public:
 class Stack {
 public:
 	/** The size of this stack */
-	virtual size_t size() const = 0;
+	virtual std::size_t size() const = 0;
 	/** Gets the ith element of the stack - where index 0 is the top and 1 is the second elem. */
-	virtual const STACK_DATA_TYPE& operator[](size_t i) const = 0;
+	virtual const STACK_DATA_TYPE& operator[](std::size_t i) const = 0;
 	/** Gets the top element of the stack */
 	virtual const STACK_DATA_TYPE& top() const {
 		return (*this)[0];

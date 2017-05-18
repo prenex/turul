@@ -13,17 +13,28 @@ namespace HashMultiStackServiceImpl {
 		mss[0].push(3);
 		mss[1].push(4);
 
+		// Testing the first few turbostack
 		LOGI("3=%d\n" ,mss[0].pop());
 		LOGI("1=%d\n" ,mss[0].pop());
 		LOGI("4=%d\n" ,mss[1].pop());
 		LOGI("2=%d\n" ,mss[1].pop());
 
+		// testing the depth capabilities of the turbostacks
 		for(int i = 0; i < 42; ++i) {
 			mss[0].push(i);
 		}
 
 		for(int i = 0; i < 42; ++i) {
 			LOGI("popped back in loop (should be %d): %d", (41 - i), mss[0].pop());
+		}
+
+		// Testing depth and access of hash slot based vector stacks
+		for(int i = 0; i < 42; ++i) {
+			mss[100].push(i);
+		}
+
+		for(int i = 0; i < 42; ++i) {
+			LOGI("popped back in loop (should be %d): %d", (41 - i), mss[100].pop());
 		}
 
 
