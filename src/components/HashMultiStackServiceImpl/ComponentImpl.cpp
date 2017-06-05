@@ -39,11 +39,35 @@ namespace HashMultiStackServiceImpl {
 
 
 		LOGI("... end of testing HashMultiStackServiceImpl!");
-		// TODO: return false if something is wrong
+		// TODO: return false if something was wrong
 		return true;
 	}
 
 	Stack& ComponentImpl::operator[] (std::size_t i) {
 		return hashStacks[i];
+	}
+
+	/** Stash away the top elem of the ith stack to the stash-stack */
+	void ComponentImpl::nstash(std::size_t i, std::size_t n) {
+		for(std::size_t j = 0; j < n; ++j) {
+			stashArea.push(hashStacks[i].pop());
+		}
+	}
+
+	/** Pushes an elem to the ith stach from the top of the stash-away stack */
+	void ComponentImpl::nunstash(std::size_t i, std::size_t n) {
+		for(std::size_t j = 0; j < n; ++j) {
+			hashStacks[i].push(stashArea.pop());
+		}
+	}
+
+	/** Stash away the top elem of the ith stack to the stash-stack */
+	void ComponentImpl::stash(std::size_t i) {
+		stashArea.push(hashStacks[i].pop());
+	}
+
+	/** Pushes an elem to the ith stach from the top of the stash-away stack */
+	void ComponentImpl::unstash(std::size_t i) {
+		hashStacks[i].push(stashArea.pop());
 	}
 }

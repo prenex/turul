@@ -30,6 +30,26 @@ public:
 		}
 	}
 
+	/** Stash away the top elem of the ith stack to the stash-stack */
+	virtual void nstash(std::size_t i, std::size_t n) {
+		return serviceImpl->nstash(i, n);
+	}
+
+	/** Pushes an elem to the ith stach from the top of the stash-away stack */
+	virtual void nunstash(std::size_t i, std::size_t n) {
+		return serviceImpl->nunstash(i, n);
+	}
+
+	/** Stash away the top elem of the ith stack to the stash-stack */
+	virtual void stash(std::size_t i) {
+		return serviceImpl->stash(i);
+	}
+
+	/** Pushes an elem to the ith stach from the top of the stash-away stack */
+	virtual void unstash(std::size_t i) {
+		return serviceImpl->unstash(i);
+	}
+
 	/** Gets the ith stack - reference ownership is NOT transferred! */
 	virtual Stack& operator[] (std::size_t i) {
 		return serviceImpl->operator[](i);
