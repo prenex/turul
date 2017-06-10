@@ -1,6 +1,6 @@
 #include "ComponentImpl.h"
 #include "HashStacks.h"
-#include "../LoggerServices.h"
+#include "../LoggerService.h"
 
 namespace HashMultiStackServiceImpl {
 	bool ComponentImpl::test() const {

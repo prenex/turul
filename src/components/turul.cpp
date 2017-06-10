@@ -7,7 +7,7 @@
 
 #define LWC_INTERFACING_MODULES
 #include "ControllerService.h"
-#include "LoggerServices.h"
+#include "LoggerService.h"
 #include "DictionaryServices.h"
 #include "TurulCoreService.h"
 #include "MultiStackService.h"
@@ -22,20 +22,25 @@
 #include "HashMultiStackServiceImpl/ComponentImpl.h"
 
 // Service configurations  //
-
-// Set log level for LoggerServices
-const LoggerServices::Level LoggerServices::conf_logLevel = LoggerServices::Level::TRACE;
-
-void test();
-
-// Entry point //
-int main(int argc, char* argv[]) {
-	test();
-	// Run the entry point
-	ControllerService controllerService;
-	return controllerService.run(argc, argv);
+void configureServices() {
+	// Set log level for LoggerService
+	LoggerService::conf_logLevel = LoggerService::Level::TRACE;
 }
 
+void test();
+// Entry point //
+int main(int argc, char* argv[]) {
+
+	//configureServices();
+
+	//test();
+	// Run the entry point
+	//ControllerService controllerService;
+	//return controllerService.run(argc, argv);
+	return 0;
+}
+
+// For local testing of stuff currently under development
 void test() {
 	MultiStackService mss;
 	mss.test();

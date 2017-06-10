@@ -1,7 +1,7 @@
 #ifndef HASH_STACKS_H
 #define HASH_STACKS_H
 
-#include"../LoggerServices.h"
+#include"../LoggerService.h"
 #include"../MultiStackService.h"
 #include<vector>
 #include<unordered_map> // Contains unordered_map

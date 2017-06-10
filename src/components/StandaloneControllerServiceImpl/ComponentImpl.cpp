@@ -3,7 +3,7 @@
 // Local includes
 #include "ComponentImpl.h"
 // Logging service and its macros
-#include"../LoggerServices.h"
+#include"../LoggerService.h"
 // Component usage includes
 
 // Uncomment if you want to see the service binding tests
@@ -15,8 +15,8 @@ namespace StandaloneControllerServiceImpl {
 	void testServices() {
 		LOGI("Pinging service implementations...");
 		// Test logger service bindings
-		LoggerServices ls;
-		LOGI(" - %d LoggerService implementations", ls.testServices());
+		auto ls = LoggerService::impl;
+		LOGI(" - %d LoggerService implementations work", ls.testService());
 		// TODO: Test if other service implementations are available
 		LOGI("...end of pinging service implementations!");
 	}
