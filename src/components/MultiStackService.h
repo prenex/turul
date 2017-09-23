@@ -1,5 +1,5 @@
-#ifndef MULTI_STACK_HANDLER_SERVICE_H
-#define MULTI_STACK_HANDLER_SERVICE_H
+#ifndef MULTI_STACK_SERVICE_H
+#define MULTI_STACK_SERVICE_H
 
 #include<cstdlib>	// for size_t
 
@@ -9,51 +9,32 @@
 #define STACK_DATA_TYPE std::size_t
 #endif // STACK_DATA_TYPE
 
-/** Just a forward declaration */
+namespace MultiStack {
+
+/** Just a forward declaration - a single(nonmulti)-stack */
 class Stack;
 
 /**
- * Provides a multi-stack with its operations
+ * Provides a multi-stack service with its operations
  */
-class MultiStackService {
-private:
-	// Service implementation
-	static MultiStackService *serviceImpl;
-protected:	
-	static void registerImpl(MultiStackService* impl) {
-		serviceImpl = impl;
-	}
+class Service {
 public:
-	virtual bool test() const {
-		if(serviceImpl != nullptr) {
-			return serviceImpl->test();
-		}
-	}
+	virtual bool test() const = 0;
 
 	/** Stash away the top elem of the ith stack to the stash-stack */
-	virtual void nstash(std::size_t i, std::size_t n) {
-		return serviceImpl->nstash(i, n);
-	}
+	virtual void nstash(std::size_t i, std::size_t n) = 0;
 
 	/** Pushes an elem to the ith stach from the top of the stash-away stack */
-	virtual void nunstash(std::size_t i, std::size_t n) {
-		return serviceImpl->nunstash(i, n);
-	}
+	virtual void nunstash(std::size_t i, std::size_t n) = 0;
 
 	/** Stash away the top elem of the ith stack to the stash-stack */
-	virtual void stash(std::size_t i) {
-		return serviceImpl->stash(i);
-	}
+	virtual void stash(std::size_t i) = 0;
 
 	/** Pushes an elem to the ith stach from the top of the stash-away stack */
-	virtual void unstash(std::size_t i) {
-		return serviceImpl->unstash(i);
-	}
+	virtual void unstash(std::size_t i) = 0;
 
 	/** Gets the ith stack - reference ownership is NOT transferred! */
-	virtual Stack& operator[] (std::size_t i) {
-		return serviceImpl->operator[](i);
-	}
+	virtual Stack& operator[] (std::size_t i) = 0;
 };
 
 /** Abstract superclass for an individual stack */
@@ -75,10 +56,8 @@ public:
 	virtual STACK_DATA_TYPE pop() = 0;
 };
 
-// The variable should be defined in some cpp file
-// it will be in the cpp that set this!
-#ifdef LWC_INTERFACING_MODULES
-MultiStackService *MultiStackService::serviceImpl;
-#endif
+// Here you might have DTO structs and stuff to interface to us...
 
-#endif // MULTI_STACK_HANDLER_SERVICE_H
+} // MultiStack namespace
+
+#endif // MULTI_STACK_SERVICE_H

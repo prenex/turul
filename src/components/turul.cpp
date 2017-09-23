@@ -5,38 +5,22 @@
 // Also this is where we set configurations parameters
 // for the components (if available)
 
-#define LWC_INTERFACING_MODULES
 #include "ControllerService.h"
-#include "LoggerServices.h"
-#include "DictionaryServices.h"
-#include "TurulCoreService.h"
-#include "MultiStackService.h"
-#include "IoService.h"
-
-#define LWC_IMPLEMENTATION_MODULES
-#include "StandaloneControllerServiceImpl/ComponentImpl.h"
-#include "StdLoggerServiceImpl/ComponentImpl.h"
-#include "BootDictionaryServiceImpl/ComponentImpl.h"
-#include "TurulCoreServiceImpl/ComponentImpl.h"
-#include "TBufIoServiceImpl/ComponentImpl.h"
-#include "HashMultiStackServiceImpl/ComponentImpl.h"
+#include "LoggerService.h"
+//#include "DictionaryServices.h"
+//#include "TurulCoreService.h"
+//#include "MultiStackService.h"
+//#include "IoService.h"
+#include "lwc2.h" // includes the proper implementations of the modules
 
 // Service configurations  //
 
-// Set log level for LoggerServices
-const LoggerServices::Level LoggerServices::conf_logLevel = LoggerServices::Level::TRACE;
+// Set log level for the LoggerService
+const Logger::Service::Level Logger::Service::conf_logLevel = Logger::Service::Level::TRACE;
 
-void test();
-
-// Entry point //
+// Entry point of the application //
 int main(int argc, char* argv[]) {
-	test();
-	// Run the entry point
-	ControllerService controllerService;
+	// Run the controller service and give the command line parameters
+	lwc2_inject<Controller::Service> controllerService;
 	return controllerService.run(argc, argv);
-}
-
-void test() {
-	MultiStackService mss;
-	mss.test();
 }

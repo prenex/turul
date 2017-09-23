@@ -1,32 +1,35 @@
 // Generic includes
 #include<cstdio>
-// Local includes
-#include "ComponentImpl.h"
-// Logging service and its macros
-#include"../LoggerServices.h"
-// Component usage includes
 
-// Uncomment if you want to see the service binding tests
-#define TEST_SERVICE_BINDINGS 1
+// These lines might look weird, but think about it!
+// The implementation header needs the interfacing ones but
+// gets it only if you include these, also you need lwc2.h for
+// providing you the template specialization so you need
+// that too here!
+#include "../ControllerService.h" // Will provide exactly our service
+#include "../LoggerService.h" // Logging service and its helper macros
+#include "../MultiStackService.h" // Will provide the multistack
+#include "../lwc2.h"
+
+// Enable this for unit testing the services
+#define TEST_CONTROLLED_SERVICES 1
 
 namespace StandaloneControllerServiceImpl {
-#ifdef TEST_SERVICE_BINDINGS
-
+#ifdef TEST_CONTROLLED_SERVICES
+	// A great place for unit testing it seems...
 	void testServices() {
 		LOGI("Pinging service implementations...");
-		// Test logger service bindings
-		LoggerServices ls;
-		LOGI(" - %d LoggerService implementations", ls.testServices());
-		// TODO: Test if other service implementations are available
+		// TODO: use the injected stuff from the class body instead of reinject here!
+		lwc2_inject<MultiStack::Service> mss;
+		mss.test();
 		LOGI("...end of pinging service implementations!");
 	}
-#endif
+#endif // TEST_CONTROLLED_SERVICES
 
 	int ComponentImpl::run(int argc, char* argv[]) {
-#ifdef TEST_SERVICE_BINDINGS
-		// Test if service implementations are available
+#ifdef TEST_CONTROLLED_SERVICES
 		testServices();
-#endif
+#endif // TEST_CONTROLLED_SERVICES
 
 		// This will be the retval of main too
 		return 0;

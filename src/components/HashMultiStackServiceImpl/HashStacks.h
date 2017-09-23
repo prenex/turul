@@ -1,8 +1,9 @@
 #ifndef HASH_STACKS_H
 #define HASH_STACKS_H
 
-#include"../LoggerServices.h"
+#include"../LoggerService.h"
 #include"../MultiStackService.h"
+#include"../lwc2.h"
 #include<vector>
 #include<unordered_map> // Contains unordered_map
 
@@ -30,7 +31,7 @@
 namespace HashMultiStackServiceImpl {
 
 	/** Stack implemented with a vector */
-	class VectorStack final : public Stack {
+	class VectorStack final : public MultiStack::Stack {
 		std::vector<STACK_DATA_TYPE> v;
 	public:
 		/** The size of this stack is the size of the underlying vector */
@@ -69,7 +70,7 @@ namespace HashMultiStackServiceImpl {
 	 * Uses the STACK_TURBO_DEPTH and STACK_DATA_TYPE macros and expect properly sized turbo area.
 	 * See: HashStacks class below
 	 */
-	class TurboStack final : public Stack {
+	class TurboStack final : public MultiStack::Stack {
 		std::size_t stackSize = 0;
 		int stackNo;
 		STACK_DATA_TYPE *turbo;
@@ -164,7 +165,7 @@ namespace HashMultiStackServiceImpl {
 			// slow(er)-access extension slots stay empty
 		}
 
-		inline Stack& operator[] (std::size_t i) {
+		inline MultiStack::Stack& operator[] (std::size_t i) {
 			if(i < STACK_BREADTH) {
 				// First STACK_BREADTH stacks are of fast direct access with turbo
 				return turboStacks[i];

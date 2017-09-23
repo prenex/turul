@@ -1,13 +1,13 @@
-#include "ComponentImpl.h"
-#include "HashStacks.h"
-#include "../LoggerServices.h"
+#include "../LoggerService.h"
+#include "../MultiStackService.h"
+#include "../lwc2.h" // This injects the proper implementation headers!
 
 namespace HashMultiStackServiceImpl {
 	bool ComponentImpl::test() const {
 		LOGI("Testing HashMultiStackServiceImpl...");
 
 		// Run tests for the multistack implementation!
-		MultiStackService mss; // DI
+		lwc2_inject<MultiStack::Service> mss; // DI
 		mss[0].push(1);
 		mss[1].push(2);
 		mss[0].push(3);
@@ -43,7 +43,7 @@ namespace HashMultiStackServiceImpl {
 		return true;
 	}
 
-	Stack& ComponentImpl::operator[] (std::size_t i) {
+	MultiStack::Stack& ComponentImpl::operator[] (std::size_t i) {
 		return hashStacks[i];
 	}
 

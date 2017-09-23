@@ -1,63 +1,76 @@
-#ifndef SIMPLE_PRINTER_SERVICE_IMPL_H
-#define SIMPLE_PRINTER_SERVICE_IMPL_H
+// This ifdef guard makes the pre-processor avoid the body of this file
+// except if this one here is defined (which means someone included the
+// interfacing header). This ensures that we can list all the implementation
+// headers in the lwc2.h file and just include that everywhere and this
+// automagically includes the right implementation headers for you in your file
+// whilst you only directly include lwc2.h and the interfacing module *.h
+//
+// This is what ensures loose coupling in that way that the plugins can be changed
+// easily by modifying the lwc2.h "descriptor" file.
+// Rem.: Aggregate components can include interfacings on their own and include the
+// implementations too for delegating parts of the work...
+#ifdef LOGGER_SERVICE_H
+#ifndef STD_LOGGER_SERVICE_IMPL_H
+#define STD_LOGGER_SERVICE_IMPL_H // normal include guards
 
 #include<cstdio>
-#include "../LoggerServices.h"
+#include "../LoggerService.h"
 
 /** Log CRITICAL->WARN to stderr and everything else to stdout. Add newlines in the end. */
 namespace StdLoggerServiceImpl {
 	/** Log CRITICAL->WARN to stderr and everything else to stdout. Add newlines in the end. */
-	class ComponentImpl : public LoggerServices {
+	class ComponentImpl : public Logger::Service {
 	public:
-		/** Register our component */
-		ComponentImpl() {
-			LoggerServices::registerImpl(this);
-		}
-
-		virtual int testServices() {
-			// Indicates there is an implementations!
-			// Always return 1 in case of implementers 
-			// that implement aggregated multiples as
-			// the interfacing module sums it up!
-			return 1;
-		}
-
 		/** Log CRITICAL->WARN to stderr and everything else to stdout. Add newlines in the end. */
-		virtual void log(const Level level, char* str) {
-			switch(level) {
-				case LoggerServices::Level::CRITICAL:
-					fprintf(stderr, "CRITICAL: %s", str);
-					fprintf(stderr, "\n");
-					break;
-				case LoggerServices::Level::ERROR:
-					fprintf(stderr, "ERROR: %s", str);
-					fprintf(stderr, "\n");
-					break;
-				case LoggerServices::Level::WARN:
-					fprintf(stderr, "WARN: %s", str);
-					fprintf(stderr, "\n");
-					break;
-				case LoggerServices::Level::INFO:
-					fprintf(stdout, "INFO: %s", str);
-					fprintf(stdout, "\n");
-					break;
-				case LoggerServices::Level::DEBUG:
-					fprintf(stdout, "DEBUG: %s", str);
-					fprintf(stdout, "\n");
-					break;
-				case LoggerServices::Level::TRACE:
-					fprintf(stdout, "TRACE: %s", str);
-					fprintf(stdout, "\n");
-					break;
+		virtual void log(const Logger::Service::Level level, char* str) {
+			if(level <= Logger::Service::conf_logLevel) {
+				switch(level) {
+					case Logger::Service::Level::CRITICAL:
+						fprintf(stderr, "CRITICAL: %s", str);
+						fprintf(stderr, "\n");
+						break;
+					case Logger::Service::Level::ERROR:
+						fprintf(stderr, "ERROR: %s", str);
+						fprintf(stderr, "\n");
+						break;
+					case Logger::Service::Level::WARN:
+						fprintf(stderr, "WARN: %s", str);
+						fprintf(stderr, "\n");
+						break;
+					case Logger::Service::Level::INFO:
+						fprintf(stdout, "INFO: %s", str);
+						fprintf(stdout, "\n");
+						break;
+					case Logger::Service::Level::DEBUG:
+						fprintf(stdout, "DEBUG: %s", str);
+						fprintf(stdout, "\n");
+						break;
+					case Logger::Service::Level::TRACE:
+						fprintf(stdout, "TRACE: %s", str);
+						fprintf(stdout, "\n");
+						break;
+				}
 			}
 		}
 	};
-}
+} // namespace StdLoggerServiceImpl
 
-// Creating the implementation ensures service reg.
-// this will be included before the main, and run before that!
-#ifdef LWC_IMPLEMENTATION_MODULES
-static StdLoggerServiceImpl::ComponentImpl stdLoggerServiceImpl;
-#endif
+// Specializing lwc2_inject with the adder service yields a class 
+// that just inherits the above implementation and do not do anything else.
+// This way if you write auto comp = lwc2_inject<Whatever::Service>; you get a class
+// that is basically just a WhateverServiceImpl::ComponentImpl disguised as the
+// lwc2_inject template specialization :-)
+//
+// To enable aggregation of components, we only declare this, when the aggregator is NOT
+// set. This way you need to set this in the beginning of your aggregator component and
+// unset in the end of that implementation header - right before its similar line.
+// This only supports one possible levels of aggregation, but is better than nothing and
+// in really bad cases you can name your ifndef differently to do multi-level stuff, just
+// I advise against that architecture anyways...
+#ifndef LOGGER_SERVICE_INJECT
+#define LOGGER_SERVICE_INJECT
+template<> class lwc2_inject<Logger::Service> : public StdLoggerServiceImpl::ComponentImpl {};
+#endif // -LOGGER_SERVICE_INJECT
 
-#endif // namespace StdLoggerServiceImpl
+#endif // -STD_LOGGER_SERVICE_IMPL_H
+#endif // +LOGGER_SERVICE_H
