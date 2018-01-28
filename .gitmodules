@@ -1,0 +1,3 @@
+[submodule "src/components/TBufIoServiceImpl/turbobuf"]
+	path = src/components/TBufIoServiceImpl/turbobuf
+	url = https://github.com/prenex/turbobuf.git
