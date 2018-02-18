@@ -4,6 +4,9 @@
 #include "../IoService.h"
 namespace TBufIoServiceImpl {
 	class ComponentImpl : public IoService {
+
+		// TODO: we should have a double-buffered operation mode - and maybe manipulation possibilities for multiple trees too?
+	
 	public:
 		ComponentImpl() {
 			IoService::registerImpl(this);
